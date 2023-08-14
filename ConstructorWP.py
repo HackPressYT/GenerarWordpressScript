@@ -69,8 +69,10 @@ def descomprimir_archivo(ruta_archivo_zip, htdocsDIR):
 
     with zipfile.ZipFile(archivo_zip, 'r') as zip_ref:
         for archivo in zip_ref.namelist():
+            info = zip_ref.getinfo(archivo)
+            tamaño_archivo = info.file_size
             zip_ref.extract(archivo, directorio_destino)
-            barra_progreso.update(len(archivo.encode('utf-8')))  # Simulación de progreso
+            barra_progreso.update(tamaño_archivo)  # Simulación de progreso
             time.sleep(0.01)  # Simulación de extracción más lenta
 
     barra_progreso.close()
